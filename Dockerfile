@@ -34,7 +34,7 @@ RUN composer install --no-interaction
 RUN php artisan key:generate
 
 # Stage 2: Copy the Laravel application to the final PHP-FPM image
-FROM php:7.4-fpm
+FROM php:8.2-fpm
 
 WORKDIR /var/www/html
 
