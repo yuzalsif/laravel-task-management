@@ -1,5 +1,5 @@
 # Stage 1: Build the Laravel application
-FROM php:7.4-fpm as builder
+FROM php:8.2-fpm as builder
 
 WORKDIR /var/www/html
 
@@ -27,6 +27,7 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 
 # Install project dependencies
+# RUN composer update
 RUN composer install --no-interaction
 
 # Generate application key
