@@ -32,7 +32,7 @@ This is a laravel web application for managing tasks
 7. Run the `docker-compose run --rm npm install` command to install npm
 
 
-8. Run the `docker-compose run --rm npm run dev` and then opn=en another terminal and run migration
+8. Run the `docker-compose run --rm npm run dev` and then open another terminal and run migration
 
 
 9. Run the `docker-compose run --rm composer php artisan migrate` to run migration
