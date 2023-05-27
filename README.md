@@ -23,7 +23,7 @@ This is a laravel web application for managing tasks
 4. Run the `docker-compose run --rm composer install` command to install composer
 
 
-5. Run the `docker-compose run --rm composer require laravel/breeze --dev` command to breeze for authentication
+5. Run the `docker-compose run --rm composer require laravel/breeze --dev` command to install breeze for authentication
 
 
 6. Run the `docker-compose run --rm composer php artisan breeze:install vue` command to install vue
