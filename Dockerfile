@@ -3,8 +3,12 @@ FROM php:8.2-fpm as builder
 
 WORKDIR /var/www/html
 
+
 # Install dependencies
-RUN apt-get update && apt-get install -y \
+# Install dependencies and Composer
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
     curl \
     libpng-dev \
     libonig-dev \
@@ -14,14 +18,18 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpq-dev
 
+RUN docker-php-ext-install pdo_mysql
+
+
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+# RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy existing application directory contents
 COPY . /var/www/html
+# COPY . .
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage

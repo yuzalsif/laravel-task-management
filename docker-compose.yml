@@ -6,12 +6,15 @@ services:
       context: .
       dockerfile: Dockerfile
     image: php:8.2-fpm
-    command: sh -c "chmod -R 777 storage && php-fpm"
+    command: sh -c "chmod -R 777 storage && php-fpm" 
     volumes:
-      - .:/var/www/html
+      - ./:/var/www/html/
+      - ./php/laravel.ini:/etc/php/conf.d/laravel.ini
+      - ./vendor/cache:/root/.composer/cache
     depends_on:
       - db
       - webserver
+    working_dir: /var/www/html
 
   webserver:
     image: nginx:latest
@@ -34,6 +37,29 @@ services:
     volumes:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+
+  npm:
+    image: node:latest
+    container_name: npm
+    volumes: 
+      - .:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+
+  # php:
+  #   build:
+  #     context: .
+  #     dockerfile: php.dockerfile
+  #   container_name: php
+  #   volumes:
+  #     - .:/var/www/html
 
 #Volumes
 volumes:
